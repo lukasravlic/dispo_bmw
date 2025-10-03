@@ -17,7 +17,7 @@ root.withdraw()
 
 # Abrir el explorador de archivos para seleccionar un archivo
 filepath = filedialog.askopenfilename(
-    title="Selecciona un archivo",
+    title="Selecciona archivo de descarga de Autoline",
     filetypes=(("Todos los archivos", "*.*"),("Archivos de texto", "*.txt"))
 )
 
@@ -73,7 +73,7 @@ root.withdraw()
 
 # Abrir el explorador de archivos para seleccionar un archivo
 filepath = filedialog.askopenfilename(
-    title="Selecciona un archivo",
+    title="Selecciona archivo de seguimiento de facturas",
     filetypes=(("Todos los archivos", "*.*"),("Archivos de texto", "*.txt"))
 )
 
@@ -92,7 +92,9 @@ else:
     print("No se seleccionó ningún archivo.")
 
 # %%
-etas = pd.read_excel(ruta)
+etas = pd.read_excel(ruta, sheet_name="EMBARQUES", header=1)
+print(etas.columns)
+etas = etas[etas['Status']=='PENDIENTE']
 
 # %%
 # 1. Convert all date-like columns to datetime format.
@@ -202,6 +204,7 @@ condicion = [tr_etas['Status.línea.pedido']=='A', tr_etas['Status.línea.pedido
 opcion = [tr_etas['Cantidad.aconsejada'], tr_etas['Cantidad.requerida']]
 
 tr_etas['Cantidad Final'] = np.select(condicion, opcion, 0)
+tr_etas = tr_etas[['']]
 
 # %%
 # Inicializar tkinter y ocultar la ventana principal
