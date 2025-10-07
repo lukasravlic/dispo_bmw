@@ -204,7 +204,8 @@ condicion = [tr_etas['Status.línea.pedido']=='A', tr_etas['Status.línea.pedido
 opcion = [tr_etas['Cantidad.aconsejada'], tr_etas['Cantidad.requerida']]
 
 tr_etas['Cantidad Final'] = np.select(condicion, opcion, 0)
-tr_etas = tr_etas[['']]
+tr_etas = tr_etas[['Cód.N..de.parte(empa', 'Fecha Final', 'Cantidad Final']]
+tr_etas.rename(columns={'Cód.N..de.parte(empa':'Material'}, inplace=True)
 
 # %%
 # Inicializar tkinter y ocultar la ventana principal
